@@ -53,7 +53,7 @@ import { Badge, Button, Panel, StatusBadge, Topbar } from "@kontourai/console-ki
 Vanilla consumers should load the element module:
 
 ```html
-<script type="module" src="./vendor/console-kit/elements/index.js"></script>
+<script type="module" src="./vendor/console-kit/dist/elements/elements/src/index.js"></script>
 ```
 
 Then render the light-DOM custom elements:

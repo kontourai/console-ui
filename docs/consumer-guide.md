@@ -67,7 +67,7 @@ Load CSS and the element module:
 ```html
 <link rel="stylesheet" href="./vendor/console-kit/tokens/index.css">
 <link rel="stylesheet" href="./vendor/console-kit/react/styles.css">
-<script type="module" src="./vendor/console-kit/elements/index.js"></script>
+<script type="module" src="./vendor/console-kit/dist/elements/elements/src/index.js"></script>
 ```
 
 Render light-DOM components:
@@ -88,7 +88,7 @@ Required assets:
 
 - `tokens/`
 - `react/styles.css` if using primitives or custom elements
-- built `elements` module if using custom elements
+- `dist/elements/elements/src/` if using custom elements
 
 Rules:
 

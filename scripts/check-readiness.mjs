@@ -44,8 +44,6 @@ for (const expected of [
 ]) {
   assertContains(readme, expected, `README must document ${expected}.`);
 }
-assertNoLegacyScope(readme, "README.md");
-
 const gallery = read(path.join(root, "docs/gallery.html"));
 for (const expected of [
   "../tokens/index.css",
@@ -64,6 +62,7 @@ for (const expected of [
 }
 
 assertAdopterContracts();
+assertNoLegacyScopeInReadinessDocs();
 console.log("Console Kit release readiness check passed.");
 
 function assertAdopterContracts() {
@@ -113,5 +112,17 @@ function assertIncludes(values, expected, message) {
 function assertNoLegacyScope(content, label) {
   if (content.includes("@kontour/console-kit")) {
     throw new Error(`${label} must not reference @kontour/console-kit.`);
+  }
+}
+
+function assertNoLegacyScopeInReadinessDocs() {
+  for (const file of [
+    "README.md",
+    "docs/consumer-guide.md",
+    "docs/gallery.html",
+    "docs/release-readiness.md",
+    "plans/04-release-readiness.md",
+  ]) {
+    assertNoLegacyScope(read(path.join(root, file)), file);
   }
 }

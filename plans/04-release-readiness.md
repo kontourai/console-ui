@@ -49,7 +49,7 @@ Before registry publishing, decide:
 - `docs/consumer-guide.md` documents React, custom elements, static HTML, theme classes, and vendored asset sync.
 - `docs/release-readiness.md` documents cross-adopter verification commands.
 - `docs/gallery.html` renders shared tokens, React styles, custom elements, React `Badge`, all product theme classes, and semantic tone states.
-- The readiness script confirms no legacy `@kontour/console-kit` package name appears in the checked contracts.
+- The readiness script confirms no legacy package-scope spelling appears in the checked contracts.
 - The readiness script confirms adopter package/theme/sync markers for Kontour Console, Flow, and Surface.
 - The readiness script confirms Survey still has its review workbench validator and that this plan documents the Survey token adoption blocker.
 
