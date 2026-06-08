@@ -61,11 +61,12 @@ Key facts:
   `Progress` (4), `Empty` (3), `Rows` (89), `ProcessFlowDiagram` (93). `Badge` already
   maps domain words → a semantic tone scale (`good/bad/warn/neutral`) via regex — this
   is exactly the contract we are formalizing.
-- **Two org scopes exist:** `@kontour/*` (console family) and `@kontourai/*` (survey,
-  flow, surface). The kit uses **`@kontourai/console-kit`** to align with the console family.
-  (If the owner wants a single scope long-term, flag it — do not silently rename others.)
-- The top-level `console-ui/` folder is an **empty stub** (`src/` only). It is the home
-  for the new package. These plan files live in `console-ui/plans/`.
+- **Two org scopes exist:** `@kontour/*` (console-core and the kontour-console app) and
+  `@kontourai/*` (survey, flow, surface). The kit ships as **`@kontourai/console-kit`**
+  (owner-confirmed), matching the survey/flow/surface family; the kontour-console app
+  takes a cross-scope dependency on it.
+- The package lives at the top-level **`console-kit/`** folder (`@kontourai/console-kit`).
+  These plan files live in `console-kit/plans/`.
 
 ---
 

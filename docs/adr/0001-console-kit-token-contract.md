@@ -41,7 +41,7 @@ The shared starting values were preserved for dark mode except `--k-text-faint`,
 
 ## Scope Note
 
-The kit uses the `@kontour` package scope to match the console family. Existing sibling products still use `@kontourai`; this ADR does not rename them.
+The kit ships under the `@kontourai` package scope (owner-confirmed), matching the existing sibling products `@kontourai/survey`, `@kontourai/flow`, and `@kontourai/surface`. The kontour-console app keeps its own `@kontour/console-ui` name and takes a cross-scope dependency on `@kontourai/console-kit`; this ADR does not rename existing packages.
 
 ## Consequences
 
