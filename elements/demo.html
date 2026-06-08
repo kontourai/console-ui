@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en" class="theme-console" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kontour Console Kit Elements Demo</title>
+    <link rel="stylesheet" href="../tokens/index.css" />
+    <link rel="stylesheet" href="../react/styles.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "react/jsx-runtime": "./react-jsx-runtime-shim.js"
+        }
+      }
+    </script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--k-bg);
+        color: var(--k-text);
+        font-family: var(--k-font-ui);
+      }
+
+      main {
+        display: grid;
+        gap: var(--k-space-4);
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: var(--k-space-6);
+      }
+
+      .demo-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--k-space-4);
+      }
+
+      .stack,
+      .row {
+        display: flex;
+        gap: var(--k-space-2);
+      }
+
+      .stack {
+        flex-direction: column;
+      }
+
+      .row {
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .label {
+        color: var(--k-text-muted);
+        font-size: var(--k-text-xs);
+        text-transform: uppercase;
+        letter-spacing: 0;
+      }
+
+      @media (max-width: 760px) {
+        .demo-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    <script type="module" src="../dist/elements/elements/src/index.js"></script>
+    <script type="module">
+      import { Badge } from "../dist/react/Badge.js";
+
+      function renderReactElement(element, target) {
+        const node = document.createElement(element.type);
+        for (const [name, value] of Object.entries(element.props ?? {})) {
+          if (name === "children") continue;
+          if (name === "className") {
+            node.className = String(value);
+          } else if (value != null) {
+            node.setAttribute(name, String(value));
+          }
+        }
+        node.textContent = String(element.props?.children ?? "");
+        target.replaceChildren(node);
+      }
+
+      renderReactElement(Badge({ value: "verified" }), document.getElementById("react-badge-mount"));
+    </script>
+  </head>
+  <body>
+    <main>
+      <k-topbar
+        eyebrow="Console Kit"
+        title="Elements Parity"
+        body="Light DOM web components using the same className contracts as the React core."
+        meta='[{"label":"theme","value":"console"},{"label":"mode","value":"dark"}]'
+        actions='[{"label":"Primary","variant":"primary"},{"label":"Ghost","variant":"ghost"}]'
+      ></k-topbar>
+
+      <section class="demo-grid">
+        <k-panel title="Badges" count="React contract comparison">
+          <div class="stack">
+            <div class="row">
+              <span class="label">React Badge</span>
+              <span id="react-badge-mount"></span>
+              <span class="label">Element</span>
+              <k-badge value="verified"></k-badge>
+            </div>
+            <div class="row">
+              <k-badge value="blocked"></k-badge>
+              <k-badge value="pending"></k-badge>
+              <k-badge value="running"></k-badge>
+              <k-badge value="unknown"></k-badge>
+            </div>
+          </div>
+        </k-panel>
+
+        <k-panel title="Status Badges" count="semantic statuses">
+          <div class="row">
+            <k-status-badge status="connected"></k-status-badge>
+            <k-status-badge status="waiting"></k-status-badge>
+            <k-status-badge status="disconnected"></k-status-badge>
+            <k-status-badge status="in review"></k-status-badge>
+          </div>
+        </k-panel>
+
+        <k-panel title="Actions" count="button variants">
+          <div class="row">
+            <k-button label="Primary" variant="primary"></k-button>
+            <k-button label="Ghost" variant="ghost"></k-button>
+            <k-button label="Accept" variant="positive"></k-button>
+            <k-button label="Hold" variant="caution"></k-button>
+            <k-button label="Reject" variant="negative"></k-button>
+          </div>
+        </k-panel>
+
+        <k-panel title="Metrics" count="cards">
+          <div class="row">
+            <k-metric label="Pass rate" value="98%"></k-metric>
+            <k-metric label="Open gates" value="3"></k-metric>
+            <k-metric label="Latency" value="41ms"></k-metric>
+          </div>
+        </k-panel>
+
+        <k-panel title="Progress" count="states">
+          <div class="stack">
+            <k-progress value="72"></k-progress>
+            <k-progress value="34"></k-progress>
+            <k-empty label="No queued work"></k-empty>
+          </div>
+        </k-panel>
+      </section>
+    </main>
+  </body>
+</html>

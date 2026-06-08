@@ -1,0 +1,44 @@
+{
+  "name": "@kontourai/console-kit",
+  "version": "0.0.0",
+  "description": "Framework-agnostic console tokens and shared UI primitives for Kontour console products.",
+  "type": "module",
+  "private": false,
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "node scripts/clean-dist.mjs && tsc -p tsconfig.json && tsc -p tsconfig.elements.json",
+    "check:exports": "npm run build && node scripts/check-package-exports.mjs",
+    "check:tokens": "node scripts/check-tokens.mjs",
+    "check": "npm run check:tokens && npm run check:exports",
+    "verify": "npm run check"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.7",
+    "typescript": "^6.0.3"
+  },
+  "exports": {
+    "./tokens": "./tokens/index.css",
+    "./tokens.css": "./tokens/tokens.css",
+    "./themes.css": "./tokens/themes.css",
+    "./fonts.css": "./tokens/fonts.css",
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.js"
+    },
+    "./react/styles.css": "./react/styles.css",
+    "./elements": {
+      "types": "./dist/elements/elements/src/index.d.ts",
+      "import": "./dist/elements/elements/src/index.js"
+    }
+  },
+  "files": [
+    "dist/",
+    "elements/",
+    "react/styles.css",
+    "tokens/",
+    "README.md"
+  ]
+}
