@@ -9,8 +9,10 @@
     "build": "node scripts/clean-dist.mjs && tsc -p tsconfig.json && tsc -p tsconfig.elements.json",
     "check:exports": "npm run build && node scripts/check-package-exports.mjs",
     "check:tokens": "node scripts/check-tokens.mjs",
-    "check": "npm run check:tokens && npm run check:exports",
-    "verify": "npm run check"
+    "check:readiness": "node scripts/check-readiness.mjs",
+    "check:pack": "npm pack --dry-run --cache /private/tmp/kontourai-console-kit-npm-cache",
+    "check": "npm run check:tokens && npm run check:exports && npm run check:readiness",
+    "verify": "npm run check && npm run check:pack"
   },
   "peerDependencies": {
     "react": "^19.0.0"
@@ -36,6 +38,7 @@
   },
   "files": [
     "dist/",
+    "docs/",
     "elements/",
     "react/styles.css",
     "tokens/",

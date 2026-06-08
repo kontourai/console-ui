@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en" class="theme-console" data-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kontour Console Kit Gallery</title>
+    <link rel="stylesheet" href="../tokens/index.css">
+    <link rel="stylesheet" href="../react/styles.css">
+    <script type="importmap">
+      {
+        "imports": {
+          "react/jsx-runtime": "../elements/react-jsx-runtime-shim.js"
+        }
+      }
+    </script>
+    <script type="module" src="../dist/elements/elements/src/index.js"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--k-bg);
+        color: var(--k-text);
+        font-family: var(--k-font-ui);
+      }
+
+      main {
+        display: grid;
+        gap: var(--k-space-5);
+        width: min(1180px, calc(100% - var(--k-space-6)));
+        margin: 0 auto;
+        padding: var(--k-space-6) 0;
+      }
+
+      .theme-strip,
+      .grid,
+      .row,
+      .stack {
+        display: grid;
+        gap: var(--k-space-3);
+      }
+
+      .theme-strip {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .row {
+        grid-template-columns: repeat(auto-fit, minmax(120px, max-content));
+        align-items: center;
+      }
+
+      .theme-swatch {
+        border: 1px solid var(--k-line);
+        border-radius: var(--k-radius-md);
+        padding: var(--k-space-4);
+        background: var(--k-panel);
+      }
+
+      .theme-swatch strong,
+      .label {
+        display: block;
+        color: var(--k-text-muted);
+        font-size: var(--k-text-xs);
+        text-transform: uppercase;
+        letter-spacing: 0;
+      }
+
+      @media (max-width: 820px) {
+        main {
+          width: min(100% - var(--k-space-4), 1180px);
+          padding-block: var(--k-space-4);
+        }
+
+        .theme-strip,
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    <script type="module">
+      import { Badge } from "../dist/react/Badge.js";
+
+      const mount = document.getElementById("react-badge-mount");
+      const badge = Badge({ value: "verified" });
+      const node = document.createElement(badge.type);
+      node.className = badge.props.className;
+      node.textContent = badge.props.children;
+      mount.replaceChildren(node);
+    </script>
+  </head>
+  <body>
+    <main>
+      <k-topbar
+        eyebrow="Console Kit"
+        title="Primitive Gallery"
+        body="One static page proving tokens, React styles, custom elements, and React class contracts render from the same package."
+        meta='[{"label":"package","value":"@kontourai/console-kit"},{"label":"entry","value":"tokens + react + elements"}]'
+        actions='[{"label":"Primary","variant":"primary"},{"label":"Ghost","variant":"ghost"}]'
+      ></k-topbar>
+
+      <section class="theme-strip" aria-label="Product themes">
+        <div class="theme-swatch theme-console"><strong>theme-console</strong><k-badge value="running"></k-badge></div>
+        <div class="theme-swatch theme-flow" data-theme="light"><strong>theme-flow light</strong><k-badge value="current"></k-badge></div>
+        <div class="theme-swatch theme-survey"><strong>theme-survey</strong><k-badge value="verified"></k-badge></div>
+        <div class="theme-swatch theme-surface" data-theme="light"><strong>theme-surface light</strong><k-badge value="published"></k-badge></div>
+      </section>
+
+      <section class="grid">
+        <k-panel title="Badge parity" count="React beside element">
+          <div class="stack">
+            <span class="label">React Badge</span>
+            <span id="react-badge-mount"></span>
+            <span class="label">Custom Elements</span>
+            <div class="row">
+              <k-badge value="verified"></k-badge>
+              <k-badge value="pending"></k-badge>
+              <k-badge value="blocked"></k-badge>
+              <k-badge value="running"></k-badge>
+              <k-badge value="unknown"></k-badge>
+            </div>
+          </div>
+        </k-panel>
+
+        <k-panel title="Status" count="semantic scale">
+          <div class="row">
+            <k-status-badge status="connected"></k-status-badge>
+            <k-status-badge status="waiting"></k-status-badge>
+            <k-status-badge status="disconnected"></k-status-badge>
+            <k-status-badge status="in review"></k-status-badge>
+          </div>
+        </k-panel>
+
+        <k-panel title="Actions" count="button variants">
+          <div class="row">
+            <k-button label="Primary" variant="primary"></k-button>
+            <k-button label="Ghost" variant="ghost"></k-button>
+            <k-button label="Accept" variant="positive"></k-button>
+            <k-button label="Hold" variant="caution"></k-button>
+            <k-button label="Reject" variant="negative"></k-button>
+          </div>
+        </k-panel>
+
+        <k-panel title="Metrics and progress" count="layout primitives">
+          <div class="stack">
+            <div class="row">
+              <k-metric label="Pass rate" value="98%"></k-metric>
+              <k-metric label="Open gates" value="3"></k-metric>
+            </div>
+            <k-progress value="72"></k-progress>
+            <k-empty label="No queued work"></k-empty>
+          </div>
+        </k-panel>
+      </section>
+    </main>
+  </body>
+</html>
