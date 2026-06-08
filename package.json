@@ -11,13 +11,15 @@
     "check:tokens": "node scripts/check-tokens.mjs",
     "check:readiness": "node scripts/check-readiness.mjs",
     "check:pack": "npm pack --dry-run --cache /private/tmp/kontourai-console-kit-npm-cache",
+    "test:browser": "playwright test",
     "check": "npm run check:tokens && npm run check:exports && npm run check:readiness",
-    "verify": "npm run check && npm run check:pack"
+    "verify": "npm run check && npm run check:pack && npm run test:browser"
   },
   "peerDependencies": {
     "react": "^19.0.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "@types/react": "^19.2.7",
     "typescript": "^6.0.3"
   },

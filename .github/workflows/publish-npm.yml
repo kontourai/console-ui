@@ -17,20 +17,53 @@ jobs:
       matrix:
         node-version: ["22", "24"]
     steps:
-      - name: Checkout
+      - name: Checkout Console Kit
         uses: actions/checkout@v6
+        with:
+          path: console-kit
+
+      - name: Checkout Kontour Console
+        uses: actions/checkout@v6
+        with:
+          repository: kontourai/kontour-console
+          path: kontour-console
+
+      - name: Checkout Flow
+        uses: actions/checkout@v6
+        with:
+          repository: kontourai/flow
+          path: flow
+
+      - name: Checkout Survey
+        uses: actions/checkout@v6
+        with:
+          repository: kontourai/survey
+          path: survey
+
+      - name: Checkout Surface
+        uses: actions/checkout@v6
+        with:
+          repository: kontourai/surface
+          path: surface
 
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
           cache: npm
+          cache-dependency-path: console-kit/package-lock.json
 
       - name: Install
         run: npm ci --no-fund --no-audit
+        working-directory: console-kit
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+        working-directory: console-kit
 
       - name: Verify
         run: npm run verify
+        working-directory: console-kit
 
   publish:
     needs: verify
@@ -39,8 +72,34 @@ jobs:
     permissions:
       contents: read
     steps:
-      - name: Checkout
+      - name: Checkout Console Kit
         uses: actions/checkout@v6
+        with:
+          path: console-kit
+
+      - name: Checkout Kontour Console
+        uses: actions/checkout@v6
+        with:
+          repository: kontourai/kontour-console
+          path: kontour-console
+
+      - name: Checkout Flow
+        uses: actions/checkout@v6
+        with:
+          repository: kontourai/flow
+          path: flow
+
+      - name: Checkout Survey
+        uses: actions/checkout@v6
+        with:
+          repository: kontourai/survey
+          path: survey
+
+      - name: Checkout Surface
+        uses: actions/checkout@v6
+        with:
+          repository: kontourai/surface
+          path: surface
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -48,9 +107,15 @@ jobs:
           node-version: "24"
           registry-url: "https://registry.npmjs.org"
           cache: npm
+          cache-dependency-path: console-kit/package-lock.json
 
       - name: Install
         run: npm ci --no-fund --no-audit
+        working-directory: console-kit
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+        working-directory: console-kit
 
       - name: Verify tag matches package version
         run: |
@@ -59,6 +124,7 @@ jobs:
             echo "Tag ${GITHUB_REF_NAME} does not match package.json version console-kit-v${PACKAGE_VERSION}" >&2
             exit 1
           fi
+        working-directory: console-kit
 
       - name: Check published version
         id: published
@@ -71,9 +137,11 @@ jobs:
           else
             echo "published=false" >> "${GITHUB_OUTPUT}"
           fi
+        working-directory: console-kit
 
       - name: Publish public package
         if: steps.published.outputs.published != 'true'
         run: npm publish --access public
+        working-directory: console-kit
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
