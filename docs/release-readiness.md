@@ -16,7 +16,9 @@ npm run verify
 - token contract check
 - package export build and smoke check
 - release readiness check
-- `npm pack --dry-run`
+- machine-checked `npm pack --dry-run --json` package contents
+
+In an isolated `console-kit` checkout, release readiness verifies package-local artifacts and skips sibling adopter contracts. In a Kontour workspace where `../kontour-console`, `../flow`, `../survey`, and `../surface` are present, the same readiness check also verifies those adopter contracts.
 
 ## Adopter Checks
 
@@ -82,10 +84,10 @@ Screenshots should prove:
 
 ## Release Decision
 
-Before registry publishing, make these explicit:
+Before registry publishing, confirm these decisions remain current:
 
-- license
+- Apache-2.0 license metadata
 - semver policy
-- npm access policy
+- npm public access policy
 - whether local `file:` adopters move to a registry version or workspace protocol
 - whether `docs/` remains in package `files`

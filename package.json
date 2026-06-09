@@ -1,16 +1,16 @@
 {
   "name": "@kontourai/console-kit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Framework-agnostic console tokens and shared UI primitives for Kontour console products.",
   "type": "module",
   "private": false,
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "scripts": {
     "build": "node scripts/clean-dist.mjs && tsc -p tsconfig.json && tsc -p tsconfig.elements.json",
     "check:exports": "npm run build && node scripts/check-package-exports.mjs",
     "check:tokens": "node scripts/check-tokens.mjs",
     "check:readiness": "node scripts/check-readiness.mjs",
-    "check:pack": "npm pack --dry-run --cache ./.npm-pack-cache",
+    "check:pack": "node scripts/check-package-contents.mjs",
     "test:browser": "playwright test",
     "check": "npm run check:tokens && npm run check:exports && npm run check:readiness",
     "verify": "npm run check && npm run check:pack && npm run test:browser"

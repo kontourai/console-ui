@@ -10,6 +10,7 @@ const pkg = readJson(path.join(root, "package.json"));
 assert.equal(pkg.name, "@kontourai/console-kit", "Package name must stay @kontourai/console-kit.");
 assertNoLegacyScope(JSON.stringify(pkg), "console-kit/package.json");
 assert.equal(pkg.private, false, "Package should remain publishable when release policy changes.");
+assert.equal(pkg.license, "Apache-2.0", "Public package license metadata must stay explicit.");
 assertIncludes(pkg.files, "tokens/", "Package files must include tokens.");
 assertIncludes(pkg.files, "react/styles.css", "Package files must include React styles.");
 assertIncludes(pkg.files, "elements/", "Package files must include element source/demo assets.");
@@ -17,6 +18,7 @@ assertIncludes(pkg.files, "docs/", "Package files must include consumer docs.");
 
 for (const file of [
   "README.md",
+  "LICENSE",
   "docs/consumer-guide.md",
   "docs/release-readiness.md",
   "docs/gallery.html",
@@ -61,9 +63,22 @@ for (const expected of [
   assertContains(gallery, expected, `Gallery must include ${expected}.`);
 }
 
-assertAdopterContracts();
+if (hasAdopterWorkspace()) {
+  assertAdopterContracts();
+} else {
+  console.log("Skipping adopter contract checks; sibling product repos are not present.");
+}
 assertNoLegacyScopeInReadinessDocs();
 console.log("Console Kit release readiness check passed.");
+
+function hasAdopterWorkspace() {
+  return [
+    "kontour-console/console-ui/package.json",
+    "flow/package.json",
+    "survey/package.json",
+    "surface/package.json",
+  ].every((file) => existsSync(path.join(workspace, file)));
+}
 
 function assertAdopterContracts() {
   const consolePkg = readJson(path.join(workspace, "kontour-console/console-ui/package.json"));

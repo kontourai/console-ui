@@ -28,30 +28,6 @@ jobs:
         with:
           path: console-kit
 
-      - name: Checkout Kontour Console
-        uses: actions/checkout@v6
-        with:
-          repository: kontourai/kontour-console
-          path: kontour-console
-
-      - name: Checkout Flow
-        uses: actions/checkout@v6
-        with:
-          repository: kontourai/flow
-          path: flow
-
-      - name: Checkout Survey
-        uses: actions/checkout@v6
-        with:
-          repository: kontourai/survey
-          path: survey
-
-      - name: Checkout Surface
-        uses: actions/checkout@v6
-        with:
-          repository: kontourai/surface
-          path: surface
-
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
