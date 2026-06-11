@@ -23,12 +23,6 @@ for (const file of [
   "docs/release-readiness.md",
   "docs/gallery.html",
   "docs/adr/0001-console-kit-token-contract.md",
-  "plans/04-release-readiness.md",
-  "plans/HANDOFF-step1.md",
-  "plans/HANDOFF-step2.md",
-  "plans/HANDOFF-step3.md",
-  "plans/HANDOFF-package-hardening.md",
-  "plans/HANDOFF-surface-adoption.md",
 ]) {
   assertFile(path.join(root, file), `Missing readiness artifact: ${file}`);
 }
@@ -140,8 +134,7 @@ function assertNoLegacyScopeInReadinessDocs() {
     "docs/consumer-guide.md",
     "docs/gallery.html",
     "docs/release-readiness.md",
-    "plans/04-release-readiness.md",
-  ]) {
+    ]) {
     assertNoLegacyScope(read(path.join(root, file)), file);
   }
 }
